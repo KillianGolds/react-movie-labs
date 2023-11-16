@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getUpcomingMovies } from '../api/tmdb-api';
 import PageTemplate from '../components/templateMovieListPage'
 
-
-function UpcomingMoviesPage() {
+const UpcomingMoviesPage = (props) => {
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
@@ -12,10 +11,16 @@ function UpcomingMoviesPage() {
         });
     }, []);
 
+    // Dummy action function
+    const dummyAction = (movie) => {
+        // dummyplaceholder
+    };
+
     return (
         <PageTemplate
             title="Upcoming Movies"
             movies={movies}
+            action={(movie) => dummyAction(movie)}
         />
     );
 }
