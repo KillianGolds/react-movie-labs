@@ -1,20 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useQuery } from 'react-query';
 import { getUpcomingMovies } from '../api/tmdb-api';
-import PageTemplate from '../components/templateMovieListPage'
+import PageTemplate from '../components/templateMovieListPage';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 
 const UpcomingMoviesPage = (props) => {
-    const [movies, setMovies] = useState([]);
+    // Use useQuery to fetch and cache upcoming movies
+    const { data: movies, error, isLoading, isError } = useQuery('upcomingMovies', getUpcomingMovies);
 
-    useEffect(() => {
-        getUpcomingMovies().then(movies => {
-            setMovies(movies);
-        });
-    }, []);
+    // Handle loading state
+    if (isLoading) {
+        return <p>Loading...</p>; // Display loading message
+    }
+
+    // Handle error state
+    if (isError) {
+        return <p>Error: {error.message}</p>; // Display error message
+    }
 
     // Dummy action function
     const dummyAction = (movie) => {
-        // dummyplaceholder
+        // dummy placeholder
     };
 
     return (
@@ -23,9 +29,9 @@ const UpcomingMoviesPage = (props) => {
             movies={movies}
             action={(movie) => {
                 return <PlaylistAddIcon movie={movie} />
-                
             }}
         />
     );
-}
+};
+
 export default UpcomingMoviesPage;

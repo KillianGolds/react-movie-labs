@@ -9,39 +9,39 @@ import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import img from '../../images/pexels-dziana-hasanbekava-5480827.jpg'
+import img from '../../images/pexels-dziana-hasanbekava-5480827.jpg';
 import { getGenres } from "../../api/tmdb-api";
 import { useQuery } from "react-query";
-import Spinner from '../spinner'
+import Spinner from '../spinner';
 
-const formControl = 
-  {
-    margin: 1,
-    minWidth: 220,
-    backgroundColor: "rgb(255, 255, 255)"
-  };
+const formControl = {
+  margin: 1,
+  minWidth: 220,
+  backgroundColor: "rgb(255, 255, 255)"
+};
 
 export default function FilterMoviesCard(props) {
   const { data, error, isLoading, isError } = useQuery("genres", getGenres);
 
-  if (isLoading) {
+  if (isLoading || !data || !data.genres) {
     return <Spinner />;
   }
 
   if (isError) {
     return <h1>{error.message}</h1>;
   }
+
   const genres = data.genres;
-  if (genres[0].name !== "All"){
+  if (!genres.find(genre => genre && genre.name === "All")) {
     genres.unshift({ id: "0", name: "All" });
   }
 
   const handleChange = (e, type, value) => {
     e.preventDefault();
-    props.onUserInput(type, value); // NEW
+    props.onUserInput(type, value);
   };
 
-  const handleTextChange = (e, props) => {
+  const handleTextChange = (e) => {
     handleChange(e, "name", e.target.value);
   };
 
@@ -80,11 +80,14 @@ export default function FilterMoviesCard(props) {
             onChange={handleGenreChange}
           >
             {genres.map((genre) => {
-              return (
-                <MenuItem key={genre.id} value={genre.id}>
-                  {genre.name}
-                </MenuItem>
-              );
+              if (genre) {
+                return (
+                  <MenuItem key={genre.id} value={genre.id}>
+                    {genre.name}
+                  </MenuItem>
+                );
+              }
+              return null;
             })}
           </Select>
         </FormControl>
