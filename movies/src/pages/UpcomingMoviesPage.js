@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { getUpcomingMovies } from '../api/tmdb-api';
 import PageTemplate from '../components/templateMovieListPage';
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
+import AddToMustWatchIcon from '../components/cardIcons/addToMustWatch'; // Import the new component
 
 const UpcomingMoviesPage = (props) => {
     // Use useQuery to fetch and cache upcoming movies
@@ -18,17 +18,12 @@ const UpcomingMoviesPage = (props) => {
         return <p>Error: {error.message}</p>; // Display error message
     }
 
-    // Dummy action function
-    const dummyAction = (movie) => {
-        // dummy placeholder
-    };
-
     return (
         <PageTemplate
             title="Upcoming Movies"
             movies={movies}
             action={(movie) => {
-                return <PlaylistAddIcon movie={movie} />
+                return <AddToMustWatchIcon movie={movie} />
             }}
         />
     );
