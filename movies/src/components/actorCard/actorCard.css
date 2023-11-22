@@ -1,0 +1,56 @@
+.actor-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+  
+  .actor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .actor-image {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .actor-card h3 {
+    margin: 16px 0 8px 0;
+    font-size: 1.1em;
+  }
+  
+  .actor-card p {
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 16px;
+  }
+  
+  /* This can be the parent container in your ActorsPage component */
+  .actors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .actor-details {
+    padding: 10px;
+  }
+  
+  .actor-name {
+    margin: 0;
+    font-size: 1.2em;
+    color: #333;
+  }
+  
+  .actor-birthday, .actor-place-of-birth, .actor-known-for, .actor-popularity {
+    color: #666;
+    font-size: 0.9em;
+    margin: 5px 0;
+  }
+  
+  
